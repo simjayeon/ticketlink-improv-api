@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: ticketlink-improv-api
+  datasource:
+    url: jdbc:mysql://localhost:3306/ticket_link?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: tla153246
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect  # MySQL ??? ?? ??
+    show-sql: true
+
