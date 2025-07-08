@@ -1,16 +1,14 @@
 package com.kbo.ticketlinkimprovapi.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
-public class User {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,4 +26,10 @@ public class User {
     private Date birthday;
 
     private String phoneNumber;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Team team;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Ticket> tickets;
 }
