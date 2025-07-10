@@ -30,6 +30,9 @@ public class User extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Team team;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Ticket> tickets;
+    @OneToMany(mappedBy = "buyer", fetch = FetchType.LAZY)
+    private List<Ticket> buyerTickets;
+
+    @OneToMany(mappedBy = "seller", fetch = FetchType.LAZY)
+    private List<Ticket> sellerTickets;
 }

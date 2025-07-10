@@ -22,8 +22,12 @@ public class Ticket extends BaseEntity {
     private ZonedDateTime purchaseDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "buyer_id")
+    private User buyer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seller_id")
+    private User seller;
 
     private String status; // 예: "예매완료", "취소됨", "환불완료" 등
 
