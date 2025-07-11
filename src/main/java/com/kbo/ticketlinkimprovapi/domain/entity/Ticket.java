@@ -1,5 +1,6 @@
 package com.kbo.ticketlinkimprovapi.domain.entity;
 
+import com.kbo.ticketlinkimprovapi.domain.enums.TicketStatus;
 import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
@@ -19,16 +20,13 @@ public class Ticket extends BaseEntity {
 
     private Integer numberOfTickets;
 
-    private ZonedDateTime purchaseDate;
+    private ZonedDateTime purchaseAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "buyer_id")
-    private User buyer;
+    @JoinColumn(name = "purchaser_id")
+    private User purchaser;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller_id")
-    private User seller;
-
-    private String status; // 예: "예매완료", "취소됨", "환불완료" 등
+    @Enumerated(EnumType.STRING)
+    private TicketStatus status;
 
 }
