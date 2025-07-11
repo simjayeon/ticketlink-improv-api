@@ -1,11 +1,13 @@
 package com.kbo.ticketlinkimprovapi.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.ZonedDateTime;
 import java.util.List;
 
 @Entity
+@Getter
 public class Game extends BaseEntity {
 
     @Id
