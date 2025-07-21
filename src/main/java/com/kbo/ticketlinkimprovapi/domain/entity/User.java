@@ -3,11 +3,13 @@ package com.kbo.ticketlinkimprovapi.domain.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Setter
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,7 @@ public class User extends BaseEntity {
 
     @NotBlank(message = "비밀번호는 필수 입력입니다.")
     private String password;
-
+    
     private Date birthday;
 
     private String phoneNumber;

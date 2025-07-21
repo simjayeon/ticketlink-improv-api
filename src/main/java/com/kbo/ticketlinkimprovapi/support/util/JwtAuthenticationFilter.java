@@ -18,25 +18,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    FilterChain filterChain)
-            throws ServletException, IOException {
+                                    FilterChain filterChain) throws ServletException, IOException {
 
+        // Authorization 헤더에서 Bearer 토큰을 추출
         String header = request.getHeader("Authorization");
 
+        // 헤더가 null이 아니고 Bearer로 시작하는지 확인
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
 
-            String userEmail = JwtTokenUtil.generateToken(token); // 이 메서드는 아래에 구현
+            // 토큰에서 사용자 이메일을 추출하는 메서드 호출
+            String userEmail = JwtUtil.generateToken(token);
 
+            // 사용자 이메일이 null이 아니고 현재 인증 정보가 없다면 UsernamePasswordAuthenticationToken 생성
             if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                        userEmail, null, null // 권한은 나중에 설정 가능
+                        userEmail, null, null
                 );
+                // 인증 세부 정보를 설정
                 auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                // SecurityContext에 인증 정보 설정
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
         }
-
+        // 다음 필터로 요청 전달
         filterChain.doFilter(request, response);
     }
 }
