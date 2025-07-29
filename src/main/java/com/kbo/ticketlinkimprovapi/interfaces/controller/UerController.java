@@ -1,6 +1,7 @@
 package com.kbo.ticketlinkimprovapi.interfaces.controller;
 
 import com.kbo.ticketlinkimprovapi.domain.service.UserService;
+import com.kbo.ticketlinkimprovapi.interfaces.dto.ReqLogin;
 import com.kbo.ticketlinkimprovapi.interfaces.dto.ReqSignup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,12 @@ public class UerController {
     public ResponseEntity<?> signUp(@RequestBody ReqSignup req) {
         userService.signUp(req);
         return ResponseEntity.ok("회원가입 성공");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody ReqLogin req) {
+
+        return userService.login(req);
     }
 
 }
