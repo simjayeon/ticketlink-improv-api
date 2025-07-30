@@ -6,4 +6,6 @@ public interface IUserRepository {
     boolean existsByName(String name);
 
     void save(User user);
+
+    User findByEmail(String email);
 }

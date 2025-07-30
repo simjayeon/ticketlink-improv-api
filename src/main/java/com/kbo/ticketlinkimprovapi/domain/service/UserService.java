@@ -8,6 +8,7 @@ import com.kbo.ticketlinkimprovapi.interfaces.dto.ResLogin;
 import com.kbo.ticketlinkimprovapi.support.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,9 +36,10 @@ public class UserService {
     }
 
     public ResponseEntity<?> login(ReqLogin req) {
-        if (!req.getEmail().equals("test@test.com") ||
-                !req.getPassword().equals("1234")) {
-            return ResponseEntity.status(401).body("이메일 또는 비밀번호 불일치");
+        User user = userRepository.findByEmail(req.getEmail());
+
+        if (!passwordEncoder.matches(req.getPassword(), user.getPassword())) {
+            throw new BadCredentialsException("Invalid password");
         }
 
         // (2) JWT 발급

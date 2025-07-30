@@ -20,6 +20,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
+        String path = request.getServletPath();
+
+        // 로그인과 회원가입은 JWT 검사 제외
+        if (path.startsWith("/api/v1/user/login") || path.startsWith("/api/v1/user/signup")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // Authorization 헤더에서 Bearer 토큰을 추출
         String header = request.getHeader("Authorization");
 
