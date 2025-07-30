@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user")
 @CrossOrigin(origins = "*")
-public class UerController {
+public class UserController {
     private final UserService userService;
 
     @PostMapping("/sign-up")
@@ -24,6 +24,11 @@ public class UerController {
     public ResponseEntity<?> login(@RequestBody ReqLogin req) {
 
         return userService.login(req);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> getUserInfo(@PathVariable("userId") Integer userId) {
+        return userService.getUserInfo(userId);
     }
 
 }

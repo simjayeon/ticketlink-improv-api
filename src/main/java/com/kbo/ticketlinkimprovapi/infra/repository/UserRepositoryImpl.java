@@ -26,4 +26,10 @@ public class UserRepositoryImpl implements IUserRepository {
     public User findByEmail(String email) {
         return userJpaRepository.findByEmail(email);
     }
+
+    @Override
+    public User findById(Integer userId) {
+        return userJpaRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+    }
 }

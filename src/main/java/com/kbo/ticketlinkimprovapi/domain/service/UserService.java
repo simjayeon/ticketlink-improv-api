@@ -5,6 +5,7 @@ import com.kbo.ticketlinkimprovapi.domain.repository.IUserRepository;
 import com.kbo.ticketlinkimprovapi.interfaces.dto.ReqLogin;
 import com.kbo.ticketlinkimprovapi.interfaces.dto.ReqSignup;
 import com.kbo.ticketlinkimprovapi.interfaces.dto.ResLogin;
+import com.kbo.ticketlinkimprovapi.interfaces.dto.ResUserInfo;
 import com.kbo.ticketlinkimprovapi.support.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -47,5 +48,15 @@ public class UserService {
 
         // (3) 응답 반환
         return ResponseEntity.ok(new ResLogin(token));
+    }
+
+    public ResponseEntity<?> getUserInfo(Integer userId) {
+        User user = userRepository.findById(userId);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        ResUserInfo userInfo = ResUserInfo.of(user);
+        return ResponseEntity.ok(userInfo);
     }
 }

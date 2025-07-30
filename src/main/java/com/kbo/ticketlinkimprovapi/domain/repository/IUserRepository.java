@@ -8,4 +8,6 @@ public interface IUserRepository {
     void save(User user);
 
     User findByEmail(String email);
+
+    User findById(Integer userId);
 }
