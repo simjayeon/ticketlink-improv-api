@@ -3,6 +3,11 @@ package com.kbo.ticketlinkimprovapi.interfaces.controller;
 import com.kbo.ticketlinkimprovapi.domain.service.UserService;
 import com.kbo.ticketlinkimprovapi.interfaces.dto.ReqLogin;
 import com.kbo.ticketlinkimprovapi.interfaces.dto.ReqSignup;
+import com.kbo.ticketlinkimprovapi.interfaces.dto.ReqTeam;
+import com.kbo.ticketlinkimprovapi.interfaces.dto.ResUserInfo;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +32,23 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<?> getUserInfo(@PathVariable("userId") Integer userId) {
+    public ResUserInfo getUserInfo(@PathVariable("userId") Integer userId) {
         return userService.getUserInfo(userId);
+    }
+
+    @PostMapping("")
+    @Operation(
+            operationId = "setMyTeam",
+            summary = "내팀 설정하기",
+            responses = {
+                    @ApiResponse(responseCode = "200",
+                            description = "정상 조회됨",
+                            content = @Content(
+                                    mediaType = "application/json"))
+            }
+    )
+    public void setMyTeam(@RequestBody ReqTeam req) {
+        userService.setMyTeam(req);
     }
 
 }

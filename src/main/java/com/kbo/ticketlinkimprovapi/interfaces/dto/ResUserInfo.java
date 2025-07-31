@@ -15,6 +15,7 @@ public class ResUserInfo {
     private String name;
     private String phoneNumber;
     private Date birthDay;
+    private Integer teamId;
     private String teamName;
 
     public static ResUserInfo of(User user) {
@@ -23,6 +24,7 @@ public class ResUserInfo {
                 .name(user.getName())
                 .phoneNumber(user.getPhoneNumber())
                 .birthDay(user.getBirthday())
+                .teamId(user.getTeam() != null ? user.getTeam().getId() : null)
                 .teamName(user.getTeam() != null ? user.getTeam().getName() : null)
                 .build();
     }
