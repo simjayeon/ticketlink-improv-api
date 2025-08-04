@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = header.substring(7);
 
             // 토큰에서 사용자 이메일을 추출하는 메서드 호출
-            String userEmail = JwtUtil.generateToken(token);
+            String userEmail = JwtUtil.extractEmail(token);
 
             // 사용자 이메일이 null이 아니고 현재 인증 정보가 없다면 UsernamePasswordAuthenticationToken 생성
             if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {

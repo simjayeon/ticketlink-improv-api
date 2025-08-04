@@ -8,13 +8,12 @@ import lombok.Setter;
 @Setter
 @Builder
 public class ResLogin {
+    @Getter
     private String accessToken;
+    private String refreshToken;
 
-    public ResLogin(String accessToken) {
+    public ResLogin(String accessToken, String refreshToken) {
         this.accessToken = accessToken;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
+        this.refreshToken = refreshToken;
     }
 }

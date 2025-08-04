@@ -38,16 +38,20 @@ public class UserService {
 
     public ResponseEntity<?> login(ReqLogin req) {
         User user = userRepository.findByEmail(req.getEmail());
+        if (user == null) {
+            throw new BadCredentialsException("사용자를 찾을 수 없습니다.");
+        }
 
         if (!passwordEncoder.matches(req.getPassword(), user.getPassword())) {
-            throw new BadCredentialsException("Invalid password");
+            throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
         }
 
         // (2) JWT 발급
-        String token = JwtUtil.generateToken(req.getEmail());
+        String accessToken = JwtUtil.generateAccessToken(user.getEmail());
+        String refreshToken = JwtUtil.generateRefreshToken(user.getEmail());
 
         // (3) 응답 반환
-        return ResponseEntity.ok(new ResLogin(token));
+        return ResponseEntity.ok(new ResLogin(accessToken, refreshToken));
     }
 
     public ResUserInfo getUserInfo(Integer userId) {
